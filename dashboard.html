@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+      <link rel="stylesheet" href="https://vjs.zencdn.net/7.2.3/video-js.css">
+      <style media="screen">
+          body { background: #000; }
+          video { padding-bottom: 5px; }
+          .stream { float: left; }
+          .side {
+            height: 100%; /* Full-height: remove this if you want "auto" height */
+            width: 480px; /* Set the width of the sidebar */
+            position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+            z-index: 1; /* Stay on top */
+            top: 0; /* Stay at the top */
+            left: 0;
+            background-color: #000; /* Black */
+            overflow: auto; /* Disable horizontal scroll */
+            padding-top: 20px;
+          }
+          .main {
+            height: 100%;
+            width: 1500px;
+            margin-left: 480px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 480;
+          }
+          .ui-draggable, .ui-droppable {
+    	      background-position: top;
+          }
+          /* Style the tab */
+          .tab {
+            overflow: hidden;
+            border: none;
+            background-color: #000;
+          }
+          /* Style the buttons that are used to open the tab content */
+          .tab button {
+            background-color: #000;
+            color: #f1f1f1;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+          }
+          /* Change background color of buttons on hover */
+          .tab button:hover {
+          }
+          /* Create an active/current tablink class */
+          .tab button.active {
+            background-color: #ccc;
+            color: #000;
+          }
+          /* Style the tab content */
+          .tabcontent {
+            display: none;
+            border-top: none;
+          }
+      </style>
+  </head>
+  <body>
+  <div class="side">
+      <div class="stream">
+        <video id='Tagesschau24' class="video-js vjs-default-skin" width="460">
+          <source type="application/x-mpegURL" src="http://tagesschau-lh.akamaihd.net/i/tagesschau_1@119231/master.m3u8">
+        </video>
+      </div>
+      <div class="stream">
+          <video id='Welt' class="video-js vjs-default-skin" width="460">
+            <source type="application/x-mpegURL" src="https://live2weltcms-lh.akamaihd.net/i/Live2WeltCMS_1@444563/index_1_av-b.m3u8">
+          </video>
+      </div>
+      <div class="stream">
+        <video id='DW' class="video-js vjs-default-skin" width="460">
+          <source type="application/x-mpegURL" src="https://dwstream72-lh.akamaihd.net/i/dwstream72_live@123556/master.m3u8">
+        </video>
+      </div>
+      <div class="stream">
+        <video id='zdf' class="video-js vjs-default-skin" width="460">
+          <source type="application/x-mpegURL" src="https://zdfhls19-i.akamaihd.net/hls/live/744752/de/4/4.m3u8">
+        </video>
+      </div>
+</div>
+<div class="main">
+  <div class="tab">
+    <button class="tablinks active" onclick="openCity(event, 'Monitor')" id="defaultOpen">Coronavirus-Monitor</button>
+    <button class="tablinks" onclick="openCity(event, 'Dashboard1')">Covid-19 Dashboard "Bundesländer"</button>
+    <button class="tablinks" onclick="openCity(event, 'Dashboard2')">Covid-19 Dashboard "Landkreise"</button>
+  </div>
+  <div id="Monitor" class="tabcontent">
+      <iframe src="https://interaktiv.morgenpost.de/corona-virus-karte-infektionen-deutschland-weltweit/" width="1400" height="1060" borders="0" frameborder="0"></iframe>
+  </div>
+    <div id="Dashboard1" class="tabcontent">
+      <iframe src="https://experience.arcgis.com/experience/478220a4c454480e823b17327b2bf1d4/page/page_0/" width="1400" height="1060" borders="0" frameborder="0"></iframe>
+    </div>
+    <div id="Dashboard2" class="tabcontent">
+      <iframe src="https://experience.arcgis.com/experience/478220a4c454480e823b17327b2bf1d4/page/page_1/" width="1400" height="1060" borders="0" frameborder="0"></iframe>
+    </div>
+</div>
+
+      <!-- JS code -->
+      <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+      <script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.14.1/videojs-contrib-hls.js"></script>
+      <script src="https://vjs.zencdn.net/7.2.3/video.js"></script>
+
+    <script>
+        function openCity(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+        }
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+    </script>
+    <script>
+        var player = videojs('Tagesschau24', {
+          controls: true,
+        });
+        player.autoplay('muted');
+
+        var player = videojs('Welt', {
+          controls: true,
+        });
+        player.autoplay('muted');
+
+        var player = videojs('DW', {
+          controls: true,
+        });
+        player.autoplay('muted');
+
+        var player = videojs('zdf', {
+          controls: true,
+        });
+        player.autoplay('muted');
+    </script>
+  </body>
+</html>
