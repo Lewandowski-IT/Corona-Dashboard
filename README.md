@@ -11,3 +11,9 @@ The Videolinks on the left side are the following German Broadcasters:
 4. ZDF
 
 ![ScreenShot](https://raw.github.com/Lewandowski-IT/Corona-Dashboard/master/screenshot.png)
+
+# License
+ This Dashboard is available for personal/non-commercial use.
+
+# Author
+ Frank Lewandowski (inbox@lewandowski-it.de)
